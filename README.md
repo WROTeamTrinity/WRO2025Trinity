@@ -30,20 +30,20 @@ We focused on creating a reliable, affordable, and well-documented design so oth
   <tr>
     <td align="center">
       <b>Eman Amir</b><br>
-      Team Leader, Programmer, Documentation & Media  
+      Team Leader, Programmer, Documentation, Social Media  
       <br><i>18 years old. Driven, hardworking, resilient. Leads both the technical side and the project narrative.</i><br><br>
       <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/eman.png" alt="eman" width="200"/>
     </td>
     <td align="center">
       <b>Fasih ur Rehman</b><br>
-      Mechanical Design  
+      Mechanical Design, Programmer
       <br><i>17 years old. Designer & fabricator, always rethinking solutions to make the chassis stronger and lighter.</i><br><br>
       <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/fasih.png" alt="fasih" width="200"/>
     </td>
     <td align="center">
       <b>Areena Ihsan</b><br>
-      Team Manager & Media  
-      <br><i>17 years old. Keeps the team on track, manages outreach and media coverage of the journey.</i><br><br>
+      Team Strategist, Social Media  
+      <br><i>17 years old. Keeps the team on track and manages media coverage of the journey.</i><br><br>
       <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/areena.png" alt="areena" width="200"/>
     </td>
   </tr>
