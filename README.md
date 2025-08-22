@@ -1,4 +1,5 @@
 # Team Trinity – WRO Pakistan 2025
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/Logo%20%2B%20Banner/banner.png" alt="banner">
 
 This repository documents **Roboinity**, Team Trinity’s entry in the **World Robot Olympiad 2025 – Future Engineers (Pakistan)** category.  
 Our robot was designed, 3D-printed, and programmed to meet this year’s challenge: building an autonomous vehicle capable of completing laps, avoiding obstacles, and parking with precision.  
@@ -23,18 +24,27 @@ We focused on creating a reliable, affordable, and well-documented design so oth
 
 **Team Name:** Team Trinity  
 **School:** Trinity School  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/Logo%20%2B%20Banner/logo.png" alt="logo">
 
 - **Eman Amir** – Team Leader, Programmer, Documentation & Media  
-  *I am 18 years old. Driven, hardworking, and resilient. Leads both the technical side and the project narrative, making sure Roboinity’s story is documented as well as its mechanics.*  
+  *I am 18 years old. Driven, hardworking, and resilient. Leads both the technical side and the project narrative, making sure Roboinity’s story is documented as well as its mechanics.*
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/eman.png" alt="eman">
 
 - **Fasih ur Rehman** – Mechanical Design  
   *I am 17 years old. The designer and fabricator of the team, always rethinking mechanical solutions to make the chassis stronger and lighter. Keeps the robot alive under pressure.*  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/fasih.png" alt="fasih">
 
 - **Areena Ihsan** – Team Manager & Media  
   *I am 17 years old. Keeps the team on track and ensures deadlines are met. Handles communication, outreach, and manages media coverage of the team’s journey.*  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/areena.png" alt="areena">
 
 - **Coach: Jahanzab Aslam Siddique** – Team Coach  
-  *Mentor and guide, the backbone of the team. Provides technical advice, strategy feedback, and motivation to push through challenges.*  
+  *Mentor and guide, the backbone of the team. Provides technical advice, strategy feedback, and motivation to push through challenges.*
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/sir.png" alt="sir">  
+
+- **The Team**
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/team.png" alt="team">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/selfie.png" alt="selfie">
 
 ---
 
@@ -53,6 +63,7 @@ The **WRO Future Engineers Challenge 2025** requires teams to:
 ---
 
 ## The Robot – Roboinity  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/IMG_3968.png" alt="robot">
 
 **Roboinity** is a fully 3D-printed robot built with affordable, widely available components.  
 It integrates **direct-drive motors, servo-based steering, sonar distance sensors, and a Pixy camera** to achieve autonomy.  
@@ -63,6 +74,40 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 - Stable power regulation with buck converters.  
 - Cost-effective sensors that balance performance with budget.  
 
+### Robot Views  
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/front.png" alt="Front view of robot" width="300"/><br>
+      <b>Front View</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/back.png" alt="Back view of robot" width="300"/><br>
+      <b>Back View</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/left.png" alt="Left view of robot" width="300"/><br>
+      <b>Left View</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/right.png" alt="Right view of robot" width="300"/><br>
+      <b>Right View</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/top.png" alt="Top view of robot" width="300"/><br>
+      <b>Top View</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/v-photos/bottom.png" alt="Bottom view of robot" width="300"/><br>
+      <b>Bottom View</b>
+    </td>
+  </tr>
+</table>
 ---
 
 #  Robot Components & Specifications
@@ -203,7 +248,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Additional Buck Converter (5V Rail)
-<img src="https://github.com/your-username/your-repo/blob/main/images/buck-5v-logic.png" alt="5V buck converter for logic/microcontrollers">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Additional%20Buck%20Converter%20(5V%20Rail).jpg" alt="5V buck converter for logic/microcontrollers">
 - **Role:** Clean, regulated 5V for Arduinos  
 - **Why chosen:** Prevents brownouts/overvoltage on sensitive logic.
 
