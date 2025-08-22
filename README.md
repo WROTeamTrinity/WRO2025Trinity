@@ -10,7 +10,7 @@ We focused on creating a reliable, affordable, and well-documented design so oth
 - [The Team](#the-team)  
 - [The Challenge](#the-challenge)  
 - [The Robot](#the-robot--roboinity)  
-- [🤖 Robot Components & Specifications](#-robot-components--specifications)  
+- [Robot Components & Specifications](#-robot-components--specifications)  
 - [Code](#code)  
 - [Robot Construction Guide](#robot-construction-guide)  
 - [System Diagrams](#system-diagrams)  
