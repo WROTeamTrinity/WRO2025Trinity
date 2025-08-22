@@ -388,6 +388,198 @@ Code will be uploaded to the [`/src`](./src) folder.
 
 **Language:** Arduino C++  
 
+
+# Code Explanations and Development Story
+
+This section explains **how the code works**, the design trade-offs we made, and the stories behind those choices. It covers both sketches: **CODE 1 (UNO/Slave)** and **CODE 2 (MEGA/Master)**.
+
+---
+
+## System Overview (Why Two Arduinos?)
+
+At first, we tried a single Arduino to do everything: motor control, servo steering, ultrasonic sensing, and PixyCam input. The result was jittery motion and missed readings. Splitting into **two boards** made a huge difference:
+
+- **MEGA (Master):** Reads ultrasonic sensors → packages 6 bytes → sends over I²C.  
+- **UNO (Slave):** Receives sensor data → steers servo + drives motor.  
+
+This **decoupled sensing from actuation**, reduced timing conflicts, and made debugging easier.
+
+---
+
+## CODE 1: UNO (Slave) — Drives, Steers, and Listens
+
+### 1) I²C Input
+
+We send 16-bit integers (two bytes each) for each distance. Three sensors × 2 bytes = 6 bytes per frame. Using a fixed-length binary frame avoids parsing issues with ASCII strings.
+
+```cpp
+Wire.begin(8);                // UNO as I2C slave at address 8
+Wire.onReceive(receiveEvent); // Interrupt callback
+
+void receiveEvent(int howMany) {
+  if (howMany < numSensors * 2) return;
+  for (int i = 0; i < numSensors; i++) {
+    int highByte = Wire.read();
+    int lowByte = Wire.read();
+    distances[i] = (highByte << 8) | lowByte;
+  }
+}
+We originally sent ASCII strings like "123,45,67\n". Noise caused lockups and partial reads, so we switched to binary packets.
+
+2) Motor Control
+The motor driver uses two pins for direction and one PWM pin for speed.
+
+cpp
+Copy
+Edit
+const int ENA = 5;
+const int IN1 = 7;
+const int IN2 = 6;
+
+void forward(int speed) {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(ENA, speed);
+}
+
+void backward(int speed) {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, speed);
+}
+
+void stopMotor() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 0);
+}
+At one point, the motor only spun in one direction. We discovered IN1 and IN2 were wired backwards. A quick swap fixed it.
+
+3) Steering Logic
+The UNO adjusts steering angles based on distances.
+
+cpp
+Copy
+Edit
+if (frontDist > 0 && frontDist < 70) {
+  if (leftDist > rightDist) {
+    steeringServo.write(180); // hard left
+    forward(speedT);
+    delay(800);
+  } else {
+    steeringServo.write(110); // hard right
+    forward(speedT);
+    delay(800);
+  }
+}
+
+if (leftDist < 30) {
+  steeringServo.write(165); // soft left
+  forward(speedT);
+  delay(60);
+}
+
+if (rightDist < 30) {
+  steeringServo.write(125); // soft right
+  forward(speedT);
+  delay(60);
+} else {
+  steeringServo.write(150); // center
+  forward(speedF);
+}
+We taped a ruler in front of the robot and tested turning behavior. Below ~70 cm, the robot needed decisive turns. At ~30 cm on the sides, small corrections kept it centered.
+
+4) Servo Setup
+cpp
+Copy
+Edit
+#include <Servo.h>
+Servo steeringServo;
+
+void setup() {
+  steeringServo.attach(10);
+  steeringServo.write(150); // start centered
+}
+Pin 10 avoided timer conflicts. Centering at boot prevents sudden jerks on power-up.
+
+CODE 2: MEGA (Master) — Reads Sensors and Sends Data
+1) Ultrasonic Reads
+cpp
+Copy
+Edit
+int ultrasonicRead(int trigPin, int echoPin) {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseInLong(echoPin, HIGH, 25000); // 25 ms timeout
+
+  if (duration == 0 || duration > 25000) return -1;
+  return duration / 58; // convert µs to cm
+}
+Timeouts were critical. Without them, a missing echo stalled the entire loop.
+
+2) Debounce Strategy
+cpp
+Copy
+Edit
+int minDistance(int trig, int echo) {
+  int d1 = ultrasonicRead(trig, echo);
+  delayMicroseconds(500);
+  int d2 = ultrasonicRead(trig, echo);
+
+  if (d1 == -1) d1 = MAX_DISTANCE_CM;
+  if (d2 == -1) d2 = MAX_DISTANCE_CM;
+
+  return (d1 < d2) ? d1 : d2;
+}
+Two quick reads → keep the smaller. Ultrasonics often return false long distances, so we biased toward the safer short value.
+
+3) I²C Transmission
+cpp
+Copy
+Edit
+Wire.begin(); // MEGA as master
+
+for (int i = 0; i < numSensors; i++) {
+  distances[i] = minDistance(trigPins[i], echoPins[i]);
+}
+
+Wire.beginTransmission(slaveAddress);
+for (int i = 0; i < numSensors; i++) {
+  Wire.write(highByte(distances[i]));
+  Wire.write(lowByte(distances[i]));
+}
+Wire.endTransmission();
+We learned the hard way that writing an int directly can truncate on some boards. Explicitly sending high and low bytes is safer.
+
+Calibration and Field Notes
+Center angle: Wheels aligned manually, servo adjusted until visually straight. Stored as CENTER.
+
+Speed tiers: One forward speed (speedF) and one turning speed (speedT) worked best.
+
+Sensor placement: Front sensor tilted slightly downward to avoid ceiling echoes. Side sensors mounted parallel to walls.
+
+Troubleshooting Notes
+Symptom	Cause	Fix
+Servo twitches randomly	Power noise	Separate 5V for logic and servo, add capacitors
+Robot crashes straight	Sensor miswired or missing echo	Check wiring and confirm timeout
+Wobbly path along wall	Overcorrection	Add deadband or filter readings
+UNO not reacting	I²C mismatch	Confirm slave address 8 and 6-byte frame
+Motor spins one way only	IN1/IN2 reversed	Swap wires or invert logic
+
+Design Decisions and Lessons
+Two-board architecture: Splitting sensing (Mega) and actuation (UNO) eliminated jitter.
+
+Binary I²C frames: Faster and more reliable than ASCII.
+
+Simple steering tiers: Hard turns for obstacles, soft nudges for walls. Reliable under time pressure.
+
+Future work: Explore PID steering, more efficient drivers (TB6612FNG), and sensor fusion with PixyCam.
+
+--- 
 **Key Features:**  
 - **PID Control:** Keeps the robot driving straight and stabilizes speed.  
 - **PixyCam Color Tracking:** Detects red and green cubes and sends data to Arduino via UART.  
@@ -419,6 +611,8 @@ It allows us to achieve competitive performance using **low-cost, lightweight al
 
 ---
 
+
+---
 ## Media and Resources  
 
 - YouTube demo video: *link to be added*  
