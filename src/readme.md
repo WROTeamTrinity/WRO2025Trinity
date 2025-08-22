@@ -1,8 +1,8 @@
-# ✅ **CODE 1: UNO (Slave)** – **Controls Motors and Servo**, receives sensor data via I2C
+# **CODE 1: UNO (Slave)** – **Controls Motors and Servo**, receives sensor data via I2C
 
 ---
 
-### 🔌 **1. Sensor Input (I2C Communication)**
+### **1. Sensor Input (I2C Communication)**
 
 #### ➤ **Purpose**
 
