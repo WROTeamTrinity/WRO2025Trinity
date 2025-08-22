@@ -26,25 +26,41 @@ We focused on creating a reliable, affordable, and well-documented design so oth
 **School:** Trinity School  
 <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/Logo%20%2B%20Banner/logo.png" alt="logo">
 
-- **Eman Amir** – Team Leader, Programmer, Documentation & Media  
-  *I am 18 years old. Driven, hardworking, and resilient. Leads both the technical side and the project narrative, making sure Roboinity’s story is documented as well as its mechanics.*
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/eman.png" alt="eman">
-
-- **Fasih ur Rehman** – Mechanical Design  
-  *I am 17 years old. The designer and fabricator of the team, always rethinking mechanical solutions to make the chassis stronger and lighter. Keeps the robot alive under pressure.*  
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/fasih.png" alt="fasih">
-
-- **Areena Ihsan** – Team Manager & Media  
-  *I am 17 years old. Keeps the team on track and ensures deadlines are met. Handles communication, outreach, and manages media coverage of the team’s journey.*  
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/areena.png" alt="areena">
-
-- **Coach: Jahanzab Aslam Siddique** – Team Coach  
-  *Mentor and guide, the backbone of the team. Provides technical advice, strategy feedback, and motivation to push through challenges.*
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/sir.png" alt="sir">  
-
-- **The Team**
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/team.png" alt="team">
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/selfie.png" alt="selfie">
+<table>
+  <tr>
+    <td align="center">
+      <b>Eman Amir</b><br>
+      Team Leader, Programmer, Documentation & Media  
+      <br><i>18 years old. Driven, hardworking, resilient. Leads both the technical side and the project narrative.</i><br><br>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/eman.png" alt="eman" width="200"/>
+    </td>
+    <td align="center">
+      <b>Fasih ur Rehman</b><br>
+      Mechanical Design  
+      <br><i>17 years old. Designer & fabricator, always rethinking solutions to make the chassis stronger and lighter.</i><br><br>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/fasih.png" alt="fasih" width="200"/>
+    </td>
+    <td align="center">
+      <b>Areena Ihsan</b><br>
+      Team Manager & Media  
+      <br><i>17 years old. Keeps the team on track, manages outreach and media coverage of the journey.</i><br><br>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/areena.png" alt="areena" width="200"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <b>Coach: Jahanzab Aslam Siddique</b><br>
+      Team Coach  
+      <br><i>Mentor and guide, the backbone of the team. Provides technical advice, strategy feedback, and motivation.</i><br><br>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/sir.png" alt="sir" width="220"/>
+    </td>
+    <td align="center" colspan="2">
+      <b>The Team</b><br><br>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/team.png" alt="team" width="300"/>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/selfie.png" alt="selfie" width="300"/>
+    </td>
+  </tr>
+</table>
 
 ---
 
