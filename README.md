@@ -128,145 +128,235 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 
 #  Robot Components & Specifications
 
----
-
-## 1) Mobility Management
-
-### Encoder Motor (Direct Drive)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Encoder%20Motor%20(Direct%20Drive).jpg" alt="Encoder motor used for direct drive with integrated encoder">
-- **Type:** DC encoder motor  
-- **Voltage:** 12V  
-- **Rated Speed:** ~300 RPM (under load)  
-- **Encoder Resolution:** 12 counts/rev  
-- **Torque:** ~0.5 kg·cm  
-- **Role:** Forward/reverse propulsion with position feedback  
-- **Why chosen:** Combines actuation + sensing, fewer moving parts than geared setups, affordable vs. BLDC.
 
 ---
 
-### Servo Motor (Steering)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Servo%20Motor%20(Steering).png__i%3DAA" alt="MG90S metal gear servo for steering">
-- **Model:** MG90S Metal Gear Servo  
-- **Operating Voltage:** 4.8–6V  
-- **Stall Torque:** 2.2 kg·cm @ 6V  
-- **Speed:** 0.08 sec/60°  
-- **Angle Range:** 120°  
-- **Role:** Steering mechanism  
-- **Why chosen:** Compact, reliable, metal gears, sufficient torque for lightweight 3D-printed steering.
+## 1) Mobility Management  
+
+### Encoder Motor (Direct Drive)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Encoder%20Motor%20(Direct%20Drive).jpg" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose this motor:  
+> - **Built-in encoder** for position feedback and closed-loop control  
+> - **Direct drive** = fewer mechanical parts, less friction, higher efficiency  
+> - **Affordable and reliable** alternative to brushless or geared setups  
+> - **Compact** and well-suited for lightweight robot chassis  
+
+This is a 12V DC motor with an integrated encoder, providing ~300 RPM under load and ~0.5 kg·cm torque. The encoder offers 12 counts per revolution, giving the Arduino real-time speed and distance feedback for PID adjustments.  
+
+In our design, this motor directly drives the wheels without complex gearboxes. This reduces mechanical wear, simplifies maintenance, and improves efficiency. The encoder data is used in software to ensure the robot drives straight, maintains consistent speed, and can measure distances accurately during lap navigation.  
+
+<div style="clear: both;"></div><br>
 
 ---
 
-### Chassis (3D-Printed)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Chassis%20(3D-Printed).png" alt="3D-printed PLA chassis with modular compartments">
-- **Material:** PLA plastic  
-- **Layer Height:** 0.2 mm  
-- **Infill:** 20%  
-- **Features:** Snap-fit joints, modular compartments, ~40% lighter than Lego prototypes  
-- **Role:** Structural base for motors, electronics, sensors  
-- **Why chosen:** Low-cost, easy to print, rapid iteration/customization.
+### MG90S Servo Motor (Steering)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Servo%20Motor%20(Steering).png__i%3DAA" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose MG90S:  
+> - **Metal gears** provide durability under repeated steering corrections  
+> - **Fast response** (0.08 sec/60°) improves maneuverability  
+> - **High torque-to-size ratio** (2.2 kg·cm at 6V) suits lightweight steering loads  
+> - **Compact form factor** fits into 3D-printed chassis designs  
+
+Operating at 4.8–6V, the MG90S provides up to 120° of rotation, making it ideal for steering mechanisms. We use it to control a 3D-printed steering linkage system that turns both front wheels.  
+
+The servo’s reliability and precision are critical for navigation. It ensures the robot makes sharp, consistent turns around obstacles and accurately aligns for parking maneuvers. Its metal gear construction provides strength and longevity, avoiding failures common in plastic gear servos.  
+
+<div style="clear: both;"></div><br>
 
 ---
 
-## 2) Power & Sense Management
+### 3D-Printed Chassis  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Chassis%20(3D-Printed).png" width="275" align="right" style="margin-left: 20px;" />
 
-### Battery
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Battery.jpeg" alt="2S 2200 mAh LiPo battery">
-- **Type:** LiPo (Lithium Polymer)  
-- **Capacity:** 2200 mAh  
-- **Cells:** 2S (7.4V nominal, 8.4V max)  
-- **Discharge Rate:** 25–30C  
-- **Role:** Main power source  
-- **Why chosen:** High current output with manageable weight and solid runtime.
+Why we 3D-printed the chassis:  
+> - **Lightweight** (~40% lighter than Lego prototypes) improves acceleration  
+> - **Modular compartments** for easy mounting of battery, drivers, and sensors  
+> - **Low-cost prototyping** using PLA, easily replaceable if damaged  
+> - **Customizable** design allows rapid iteration during testing  
 
----
+The chassis is fabricated using PLA plastic with a 0.2 mm layer height and 20% infill density. It includes snap-fit joints and modular electronics bays, making it easy to upgrade or replace parts.  
 
-### Microcontroller — Arduino Mega 2560
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Microcontroller%20%E2%80%94%20Arduino%20Mega%202560.jpg" alt="Arduino Mega 2560 microcontroller">
-- **I/O Pins:** 54 digital, 16 analog  
-- **Clock:** 16 MHz  
-- **Role:** Central control (motors, PID, steering servo, ultrasonic)  
-- **Why chosen:** More I/O/memory for multiple peripherals.
+By reducing weight while maintaining strength, the 3D-printed chassis maximizes speed and agility during competition. It also allows for better placement of sensors and wiring, ensuring neat cable management and balanced weight distribution.  
+
+<div style="clear: both;"></div><br>
 
 ---
 
-### Microcontroller — Arduino Uno
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Microcontroller%20%E2%80%94%20Arduino%20Uno.webp" alt="Arduino Uno microcontroller dedicated to PixyCam">
-- **I/O Pins:** 14 digital, 6 analog  
-- **Clock:** 16 MHz  
-- **Role:** Handles PixyCam and sensor fusion  
-- **Why chosen:** Offloads image I/O from the Mega for reliability.
+## 2) Power & Sense Management  
+
+### LiPo Battery (2S, 2200 mAh)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Battery.jpeg" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose this battery:  
+> - **High discharge rate** (25–30C) supports motor surges  
+> - **Lightweight yet powerful** for robotics applications  
+> - **2200 mAh capacity** provides solid runtime without excess weight  
+> - **Widely available & rechargeable**  
+
+Our robot is powered by a 2-cell (2S) Lithium Polymer battery, nominally 7.4V and fully charged at 8.4V. With 2200 mAh capacity, it supplies consistent power to motors, servos, and electronics throughout the match.  
+
+The high discharge rate ensures motors receive the necessary current during acceleration or obstacle avoidance. Its compact size keeps the robot lightweight, balancing performance and endurance.  
+
+<div style="clear: both;"></div><br>
 
 ---
 
-## 3) Sensors
+### Arduino Mega 2560  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Microcontroller%20%E2%80%94%20Arduino%20Mega%202560.jpg" width="275" align="right" style="margin-left: 20px;" />
 
-### Sonar (Ultrasonic) Sensor
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Sonar%20(Ultrasonic)%20Sensor.jpg" alt="Waterproof ultrasonic sensor (HC-SR04 variant)">
-- **Model:** Waterproof HC-SR04 variant  
-- **Range:** 2–400 cm  
-- **Accuracy:** ±3 mm  
-- **Frequency:** 40 kHz  
-- **Role:** Obstacle/wall distance measurement  
-- **Why chosen:** Inexpensive, lighting-agnostic, waterproof for robustness.
+Why we chose Arduino Mega:  
+> - **Large number of I/O pins** (54 digital, 16 analog) for multiple sensors  
+> - **16 MHz clock speed** sufficient for real-time robotics  
+> - **Reliable libraries** and broad community support  
+> - **Dedicated processing** for driving logic and sensor integration  
 
----
+The Arduino Mega serves as the central controller of the robot, handling DC motor control, PID loops, servo steering, and ultrasonic sensor processing. Its expanded pin count makes it ideal for a complex build with multiple peripherals.  
 
-### Waterproof Sonar (Ultrasonic) Sensor
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Waterproof%20Sonar%20(Ultrasonic)%20Sensor.webp" alt="Waterproof ultrasonic sensor module (JSN-SR04T or equivalent)">
-- **Model:** JSN-SR04T (or A02YYUW equivalent)  
-- **Operating Voltage:** 5V  
-- **Range:** 25–600 cm  
-- **Blind Zone:** ~25 cm  
-- **Resolution:** ~1 cm  
-- **Frequency:** 40 kHz  
-- **Interface:** Trigger / Echo (5V TTL)  
-- **Ingress Rating:** Waterproof transducer head (IP66-style)  
-- **Role:** Distance sensing in wet/splashy environments or near the floor where spills are likely.  
-- **Why chosen:** Remote, potted transducer tolerates moisture where standard ultrasonic modules fail; drop-in Arduino compatible using `pulseIn()` or timers.  
+By dedicating tasks to the Mega, we avoid pin conflicts and keep performance stable. Its low cost and proven reliability make it an excellent backbone for robotics.  
+
+<div style="clear: both;"></div><br>
 
 ---
 
-### Pixy Camera (Pixy2 + PixyMon)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Pixy%20Camera%20(Pixy2%20%2B%20PixyMon)%20.jpg" alt="Pixy2 smart camera for color-based object tracking">
-- **Resolution:** 1296×976  
-- **Frame Rate:** 60 fps  
-- **Interfaces:** UART / I2C / SPI / USB  
-- **Role:** Real-time color object detection/tracking (trained for red/green WRO obstacles)  
-- **Why chosen:** On-camera processing reduces code and cost vs. Pi/OpenMV.
+### Arduino Uno  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Microcontroller%20%E2%80%94%20Arduino%20Uno.webp" width="275" align="right" style="margin-left: 20px;" />
+
+Why we added an Arduino Uno:  
+> - **Dedicated handling** of PixyCam image data  
+> - **Prevents overload** on the Arduino Mega  
+> - **Simple and reliable** for serial communication tasks  
+> - **Cost-effective** and widely documented  
+
+The Uno is responsible for managing the Pixy2 camera and feeding processed visual data into the control loop. Offloading this task prevents the Mega from becoming overloaded with vision processing, ensuring smooth integration between sensors and motor control.  
+
+This dual-controller setup makes our system more fault-tolerant and efficient under competition conditions.  
+
+<div style="clear: both;"></div><br>
+
 
 ---
 
-## 4) Motor Driver
+## 3) Sensors  
 
-### L298N Dual H-Bridge
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/L298N%20Dual%20H-Bridge.jpg" alt="L298N dual H-bridge motor driver board">
-- **Operating Voltage:** 5–35V  
-- **Current:** 1A continuous, 2A peak per channel  
-- **Role:** DC motor speed/direction control  
-- **Why chosen:** Cheap, widely available, Arduino-friendly; sufficient for our motor load.
+### Sonar (Ultrasonic) Sensor – HC-SR04 Variant  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Sonar%20(Ultrasonic)%20Sensor.jpg" width="275" align="right" style="margin-left: 20px;" />
 
----
+Why we chose HC-SR04 variant:  
+> - **Wide detection range** (2–400 cm)  
+> - **Good accuracy** (±3 mm) for obstacle avoidance  
+> - **Unaffected by lighting** unlike IR sensors or cameras  
+> - **Waterproof version** adds durability for competitions  
 
-## 5) Power Regulation
+This ultrasonic sensor works at 40 kHz, emitting sound pulses and measuring the echo time to calculate distance. Its robustness and low cost make it ideal for detecting obstacles and walls in a dynamic competition environment.  
 
-### Buck Converter (3A)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Buck%20Converter%20(3A).jpg">
-- **Role:** Steps LiPo down to stable 5–6V for servo  
-- **Why chosen:** Protects servo from LiPo fluctuations.
+In our robot, these sensors are mounted at the front and sides to ensure collision prevention and track alignment. By fusing multiple readings, the robot can decide whether to turn left, right, or stop before impact.  
 
----
-
-### Buck-Boost Converter (4A)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Buck-Boost%20Converter%20(4A)%20.webp">
-- **Role:** Stable voltage for drive motor across battery discharge curve  
-- **Why chosen:** Consistent motor performance from full to low battery.
+<div style="clear: both;"></div><br>
 
 ---
 
-### Additional Buck Converter (5V Rail)
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Additional%20Buck%20Converter%20(5V%20Rail).jpg" alt="5V buck converter for logic/microcontrollers">
-- **Role:** Clean, regulated 5V for Arduinos  
-- **Why chosen:** Prevents brownouts/overvoltage on sensitive logic.
+### Waterproof Ultrasonic Sensor – JSN-SR04T  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Waterproof%20Sonar%20(Ultrasonic)%20Sensor.webp" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose JSN-SR04T:  
+> - **Waterproof head** tolerates splashes, dust, and debris (IP66)  
+> - **Extended range** (25–600 cm) for long-distance detection  
+> - **Compact design** for flexible mounting on chassis  
+> - **Arduino-compatible** via simple Trigger/Echo interface  
+
+Unlike the HC-SR04, this sensor has a remote, potted transducer that allows outdoor and rugged usage. It has a ~25 cm blind zone, but excels at measuring longer ranges with stability.  
+
+We use this sensor for reliable detection of track boundaries and distant obstacles. It adds resilience to the robot, ensuring functionality even in environments with moisture or uneven flooring.  
+
+<div style="clear: both;"></div><br>
+
+---
+
+### Pixy Camera (Pixy2 + PixyMon)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Pixy%20Camera%20(Pixy2%20%2B%20PixyMon)%20.jpg" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose Pixy2:  
+> - **Real-time object recognition** without heavy onboard CPU  
+> - **High frame rate** (60 fps) for smooth detection  
+> - **Multi-protocol support** (UART, I2C, SPI, USB)  
+> - **Pre-trained color signatures** simplify programming  
+
+The Pixy2 camera detects objects based on color and shape, outputting coordinates and size directly to the Arduino. With its 1296×976 resolution, it provides fast and efficient visual feedback.  
+
+In our build, the Pixy is trained to recognize red and green objects, which represent obstacles in the WRO challenge. This gives the robot vision capability while keeping the computational load low. Combined with sonar data, it allows smarter navigation decisions and obstacle avoidance.  
+
+<div style="clear: both;"></div><br>
+
+---
+
+## 4) Motor Driver  
+
+### ⚡ L298N Dual H-Bridge  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/L298N%20Dual%20H-Bridge.jpg" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose L298N:  
+> - **Dual H-bridge** supports 2 DC motors simultaneously  
+> - **PWM speed control** via Arduino  
+> - **Integrated heat sink** prevents overheating during long runs  
+> - **Cheap and widely available** in robotics kits  
+
+The L298N allows full control of motor speed and direction by using logic signals from the Arduino. It supports 5–35V inputs and can provide ~1A continuous per channel (2A peak), which is sufficient for our DC encoder motors.  
+
+Although newer drivers like TB6612FNG are more efficient, the L298N remains robust, easy to use, and cost-effective. It bridges our Arduino logic with the 12V motors, ensuring reliable propulsion and direction changes.  
+
+<div style="clear: both;"></div><br>
+
+---
+
+## 5) Power Regulation  
+
+### Buck Converter (3A)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Buck%20Converter%20(3A).jpg" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose this converter:  
+> - **Stable voltage regulation** for servos (5–6V)  
+> - **Prevents overvoltage** damage from LiPo batteries  
+> - **Compact module** easy to integrate into wiring  
+> - **Reliable under load** with 3A current capacity  
+
+The servo motor requires stable 5–6V. LiPo batteries fluctuate between 8.4V (fully charged) and ~7.0V (discharged). The buck converter ensures the servo always receives the correct voltage, protecting it from premature failure and ensuring consistent steering performance.  
+
+<div style="clear: both;"></div><br>
+
+---
+
+### Buck-Boost Converter (4A)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Buck-Boost%20Converter%20(4A)%20.webp" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose this converter:  
+> - **Maintains stable motor voltage** across full battery cycle  
+> - **4A output capacity** suits motor surges  
+> - **Buck-boost flexibility** handles both step-up and step-down conversion  
+> - **Ensures consistent drive power** for competition reliability  
+
+This converter regulates the voltage supply to the encoder motors. Even as battery voltage drops during a match, the buck-boost module keeps motor output stable. This prevents speed inconsistencies and ensures reliable lap completion under all conditions.  
+
+<div style="clear: both;"></div><br>
+
+---
+
+### Additional Buck Converter (5V Rail)  
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Additional%20Buck%20Converter%20(5V%20Rail).jpg" width="275" align="right" style="margin-left: 20px;" />
+
+Why we chose this converter:  
+> - **Dedicated 5V supply** for Arduino boards  
+> - **Protects sensitive logic** from LiPo fluctuations  
+> - **Isolates noise** from motors and servos  
+> - **Keeps microcontrollers stable** during voltage dips  
+
+This buck converter ensures the Arduino Mega and Uno always receive a clean 5V supply. By isolating control logic from motor noise, it prevents random resets or brownouts, which are common when high-current devices share the same unregulated power.  
+
+This safeguard is essential in competitive robotics, where reliability matters as much as performance.  
+
+<div style="clear: both;"></div><br>
+
 
 ---
 
