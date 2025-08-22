@@ -37,7 +37,7 @@ void receiveEvent(int howMany) {
 
 ---
 
-### ⚙️ **2. Motor Control (1 DC Motor)**
+### **2. Motor Control (1 DC Motor)**
 
 #### ➤ **Purpose**
 
@@ -87,7 +87,7 @@ void stopMotor() {
 
 ---
 
-### 🔁 **3. Main Loop – Autonomous Movement Logic**
+### **3. Main Loop – Autonomous Movement Logic**
 
 #### ➤ **Purpose**
 
@@ -147,7 +147,7 @@ else {
 
 ---
 
-### 🤖 **4. Servo Motor – Steering**
+### **4. Servo Motor – Steering**
 
 #### ➤ **Purpose**
 
@@ -167,7 +167,7 @@ steeringServo.write(150);  // start centered
 
 ---
 
-## ✅ Summary for Code 1 (UNO):
+## Summary for Code 1 (UNO):
 
 | Component        | Summary                                                                                    |
 | ---------------- | ------------------------------------------------------------------------------------------ |
@@ -178,11 +178,11 @@ steeringServo.write(150);  // start centered
 
 ---
 
-# ✅ **CODE 2: MEGA (Master)** – **Reads Sensors & Sends Data to UNO via I2C**
+# **CODE 2: MEGA (Master)** – **Reads Sensors & Sends Data to UNO via I2C**
 
 ---
 
-### 📡 **1. Ultrasonic Sensor Array**
+### **1. Ultrasonic Sensor Array**
 
 #### ➤ **Purpose**
 
@@ -212,7 +212,7 @@ for (int i = 0; i < numSensors; i++) {
 
 ---
 
-### ⚙️ **2. Ultrasonic Reading Functions**
+### **2. Ultrasonic Reading Functions**
 
 #### ➤ **Function: `ultrasonicRead()`**
 
@@ -257,7 +257,7 @@ int minDistance(int trig, int echo) {
 
 ---
 
-### 📤 **3. I2C Master Transmission**
+### **3. I2C Master Transmission**
 
 #### ➤ **Setup**
 
@@ -285,7 +285,7 @@ Wire.endTransmission();
 
 ---
 
-## ✅ Summary for Code 2 (MEGA):
+## Summary for Code 2 (MEGA):
 
 | Component              | Summary                                             |
 | ---------------------- | --------------------------------------------------- |
