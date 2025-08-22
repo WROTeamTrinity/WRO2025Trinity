@@ -117,7 +117,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ## 1) Mobility Management
 
 ### Encoder Motor (Direct Drive)
-<img src="https://github.com/your-username/your-repo/blob/main/images/encoder-motor.png" alt="Encoder motor used for direct drive with integrated encoder">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Encoder%20Motor%20(Direct%20Drive).jpg" alt="Encoder motor used for direct drive with integrated encoder">
 - **Type:** DC encoder motor  
 - **Voltage:** 12V  
 - **Rated Speed:** ~300 RPM (under load)  
@@ -129,7 +129,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Servo Motor (Steering)
-<img src="https://github.com/your-username/your-repo/blob/main/images/mg90s-servo.png" alt="MG90S metal gear servo for steering">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Servo%20Motor%20(Steering).png__i%3DAA" alt="MG90S metal gear servo for steering">
 - **Model:** MG90S Metal Gear Servo  
 - **Operating Voltage:** 4.8–6V  
 - **Stall Torque:** 2.2 kg·cm @ 6V  
@@ -141,7 +141,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Chassis (3D-Printed)
-<img src="https://github.com/your-username/your-repo/blob/main/images/pla-chassis.png" alt="3D-printed PLA chassis with modular compartments">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Chassis%20(3D-Printed).png" alt="3D-printed PLA chassis with modular compartments">
 - **Material:** PLA plastic  
 - **Layer Height:** 0.2 mm  
 - **Infill:** 20%  
@@ -154,7 +154,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ## 2) Power & Sense Management
 
 ### Battery
-<img src="https://github.com/your-username/your-repo/blob/main/images/lipo-2s-2200.png" alt="2S 2200 mAh LiPo battery">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Battery.jpeg" alt="2S 2200 mAh LiPo battery">
 - **Type:** LiPo (Lithium Polymer)  
 - **Capacity:** 2200 mAh  
 - **Cells:** 2S (7.4V nominal, 8.4V max)  
@@ -165,7 +165,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Microcontroller — Arduino Mega 2560
-<img src="https://github.com/your-username/your-repo/blob/main/images/arduino-mega-2560.png" alt="Arduino Mega 2560 microcontroller">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Microcontroller%20%E2%80%94%20Arduino%20Mega%202560.jpg" alt="Arduino Mega 2560 microcontroller">
 - **I/O Pins:** 54 digital, 16 analog  
 - **Clock:** 16 MHz  
 - **Role:** Central control (motors, PID, steering servo, ultrasonic)  
@@ -174,7 +174,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Microcontroller — Arduino Uno
-<img src="https://github.com/your-username/your-repo/blob/main/images/arduino-uno.png" alt="Arduino Uno microcontroller dedicated to PixyCam">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Microcontroller%20%E2%80%94%20Arduino%20Uno.webp" alt="Arduino Uno microcontroller dedicated to PixyCam">
 - **I/O Pins:** 14 digital, 6 analog  
 - **Clock:** 16 MHz  
 - **Role:** Handles PixyCam and sensor fusion  
@@ -185,7 +185,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ## 3) Sensors
 
 ### Sonar (Ultrasonic) Sensor
-<img src="https://github.com/your-username/your-repo/blob/main/images/ultrasonic-waterproof.png" alt="Waterproof ultrasonic sensor (HC-SR04 variant)">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Sonar%20(Ultrasonic)%20Sensor.jpg" alt="Waterproof ultrasonic sensor (HC-SR04 variant)">
 - **Model:** Waterproof HC-SR04 variant  
 - **Range:** 2–400 cm  
 - **Accuracy:** ±3 mm  
@@ -196,7 +196,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Waterproof Sonar (Ultrasonic) Sensor
-<img src="https://github.com/your-username/your-repo/blob/main/images/jsn-sr04t.png" alt="Waterproof ultrasonic sensor module (JSN-SR04T or equivalent)">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Waterproof%20Sonar%20(Ultrasonic)%20Sensor.webp" alt="Waterproof ultrasonic sensor module (JSN-SR04T or equivalent)">
 - **Model:** JSN-SR04T (or A02YYUW equivalent)  
 - **Operating Voltage:** 5V  
 - **Range:** 25–600 cm  
@@ -211,7 +211,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ---
 
 ### Pixy Camera (Pixy2 + PixyMon)
-<img src="https://github.com/your-username/your-repo/blob/main/images/pixy2-camera.png" alt="Pixy2 smart camera for color-based object tracking">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Pixy%20Camera%20(Pixy2%20%2B%20PixyMon)%20.jpg" alt="Pixy2 smart camera for color-based object tracking">
 - **Resolution:** 1296×976  
 - **Frame Rate:** 60 fps  
 - **Interfaces:** UART / I2C / SPI / USB  
@@ -223,7 +223,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ## 4) Motor Driver
 
 ### L298N Dual H-Bridge
-<img src="https://github.com/your-username/your-repo/blob/main/images/l298n.png" alt="L298N dual H-bridge motor driver board">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/L298N%20Dual%20H-Bridge.jpg" alt="L298N dual H-bridge motor driver board">
 - **Operating Voltage:** 5–35V  
 - **Current:** 1A continuous, 2A peak per channel  
 - **Role:** DC motor speed/direction control  
@@ -234,14 +234,14 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 ## 5) Power Regulation
 
 ### Buck Converter (3A)
-<img src="https://github.com/your-username/your-repo/blob/main/images/buck-3a.png" alt="3A buck converter powering servo">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Buck%20Converter%20(3A).jpg">
 - **Role:** Steps LiPo down to stable 5–6V for servo  
 - **Why chosen:** Protects servo from LiPo fluctuations.
 
 ---
 
 ### Buck-Boost Converter (4A)
-<img src="https://github.com/your-username/your-repo/blob/main/images/buck-boost-4a.png" alt="4A buck-boost converter for main drive motor">
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Buck-Boost%20Converter%20(4A)%20.webp">
 - **Role:** Stable voltage for drive motor across battery discharge curve  
 - **Why chosen:** Consistent motor performance from full to low battery.
 
