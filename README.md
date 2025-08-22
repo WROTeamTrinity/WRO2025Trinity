@@ -233,7 +233,7 @@ It integrates **direct-drive motors, servo-based steering, sonar distance sensor
 
 ## Code  
 
-Code will be uploaded to the [`/code`](./code) folder.  
+Code will be uploaded to the [`/src`](./src) folder.  
 
 **Language:** Arduino C++  
 
