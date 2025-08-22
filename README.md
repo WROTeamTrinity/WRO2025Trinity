@@ -382,14 +382,11 @@ This safeguard is essential in competitive robotics, where reliability matters a
 
 ---
 
-## Code  
+# Code Explanations and Development Story
 
 Code will be uploaded to the [`/src`](./src) folder.  
 
-**Language:** Arduino C++  
-
-
-# Code Explanations and Development Story
+**Language:** Arduino C++ 
 
 This section explains **how the code works**, the design trade-offs we made, and the stories behind those choices. It covers both sketches: **CODE 1 (UNO/Slave)** and **CODE 2 (MEGA/Master)**.
 
@@ -424,12 +421,12 @@ void receiveEvent(int howMany) {
     distances[i] = (highByte << 8) | lowByte;
   }
 }
+```
 We originally sent ASCII strings like "123,45,67\n". Noise caused lockups and partial reads, so we switched to binary packets.
 
 2) Motor Control
 The motor driver uses two pins for direction and one PWM pin for speed.
-
-cpp
+```cpp
 Copy
 Edit
 const int ENA = 5;
@@ -453,12 +450,13 @@ void stopMotor() {
   digitalWrite(IN2, LOW);
   analogWrite(ENA, 0);
 }
+```
+
 At one point, the motor only spun in one direction. We discovered IN1 and IN2 were wired backwards. A quick swap fixed it.
 
 3) Steering Logic
 The UNO adjusts steering angles based on distances.
-
-cpp
+```cpp
 Copy
 Edit
 if (frontDist > 0 && frontDist < 70) {
@@ -487,10 +485,11 @@ if (rightDist < 30) {
   steeringServo.write(150); // center
   forward(speedF);
 }
+```
 We taped a ruler in front of the robot and tested turning behavior. Below ~70 cm, the robot needed decisive turns. At ~30 cm on the sides, small corrections kept it centered.
 
 4) Servo Setup
-cpp
+```cpp
 Copy
 Edit
 #include <Servo.h>
@@ -500,11 +499,13 @@ void setup() {
   steeringServo.attach(10);
   steeringServo.write(150); // start centered
 }
+```
 Pin 10 avoided timer conflicts. Centering at boot prevents sudden jerks on power-up.
 
 CODE 2: MEGA (Master) — Reads Sensors and Sends Data
+
 1) Ultrasonic Reads
-cpp
+```cpp
 Copy
 Edit
 int ultrasonicRead(int trigPin, int echoPin) {
@@ -519,10 +520,13 @@ int ultrasonicRead(int trigPin, int echoPin) {
   if (duration == 0 || duration > 25000) return -1;
   return duration / 58; // convert µs to cm
 }
+```
+
 Timeouts were critical. Without them, a missing echo stalled the entire loop.
 
 2) Debounce Strategy
-cpp
+
+```cpp
 Copy
 Edit
 int minDistance(int trig, int echo) {
@@ -535,10 +539,13 @@ int minDistance(int trig, int echo) {
 
   return (d1 < d2) ? d1 : d2;
 }
+```
+
 Two quick reads → keep the smaller. Ultrasonics often return false long distances, so we biased toward the safer short value.
 
 3) I²C Transmission
-cpp
+
+```cpp
 Copy
 Edit
 Wire.begin(); // MEGA as master
@@ -553,40 +560,45 @@ for (int i = 0; i < numSensors; i++) {
   Wire.write(lowByte(distances[i]));
 }
 Wire.endTransmission();
+```
+
 We learned the hard way that writing an int directly can truncate on some boards. Explicitly sending high and low bytes is safer.
 
-Calibration and Field Notes
-Center angle: Wheels aligned manually, servo adjusted until visually straight. Stored as CENTER.
+---
 
-Speed tiers: One forward speed (speedF) and one turning speed (speedT) worked best.
+# Calibration and Field Notes
 
-Sensor placement: Front sensor tilted slightly downward to avoid ceiling echoes. Side sensors mounted parallel to walls.
+- Center angle: Wheels aligned manually, servo adjusted until visually straight. Stored as CENTER.
+- Speed tiers: One forward speed (speedF) and one turning speed (speedT) worked best.
+- Sensor placement: Front sensor tilted slightly downward to avoid ceiling echoes. Side sensors mounted parallel to walls.
 
-Troubleshooting Notes
-Symptom	Cause	Fix
-Servo twitches randomly	Power noise	Separate 5V for logic and servo, add capacitors
-Robot crashes straight	Sensor miswired or missing echo	Check wiring and confirm timeout
-Wobbly path along wall	Overcorrection	Add deadband or filter readings
-UNO not reacting	I²C mismatch	Confirm slave address 8 and 6-byte frame
-Motor spins one way only	IN1/IN2 reversed	Swap wires or invert logic
+## Troubleshooting Notes
 
-Design Decisions and Lessons
-Two-board architecture: Splitting sensing (Mega) and actuation (UNO) eliminated jitter.
+| Symptom                 | Cause                          | Fix                                                      |
+|--------------------------|--------------------------------|----------------------------------------------------------|
+| Servo twitches randomly | Power noise                    | Separate 5V for logic and servo, add capacitors          |
+| Robot crashes straight  | Sensor miswired or missing echo| Check wiring and confirm timeout                         |
+| Wobbly path along wall  | Overcorrection                 | Add deadband or filter readings                          |
+| UNO not reacting        | I²C mismatch                   | Confirm slave address 8 and correct 6-byte I²C frame     |
+| Motor spins one way only| IN1/IN2 reversed               | Swap motor wires or invert logic in `forward()`/`backward()` |
 
-Binary I²C frames: Faster and more reliable than ASCII.
 
-Simple steering tiers: Hard turns for obstacles, soft nudges for walls. Reliable under time pressure.
+##Design Decisions and Lessons
 
-Future work: Explore PID steering, more efficient drivers (TB6612FNG), and sensor fusion with PixyCam.
+- Two-board architecture: Splitting sensing (Mega) and actuation (UNO) eliminated jitter.
+- Binary I²C frames: Faster and more reliable than ASCII.
+- Simple steering tiers: Hard turns for obstacles, soft nudges for walls. Reliable under time pressure.
+- Future work: Explore PID steering, more efficient drivers (TB6612FNG), and sensor fusion with PixyCam.
 
 --- 
+
 **Key Features:**  
 - **PID Control:** Keeps the robot driving straight and stabilizes speed.  
 - **PixyCam Color Tracking:** Detects red and green cubes and sends data to Arduino via UART.  
 - **Sonar Distance Tracking:** Prevents collisions by measuring proximity to walls and objects.  
 - **Sensor Fusion:** Integrates PixyCam and sonar readings for reliable decision-making.  
 
-Why this approach?  
+**Why this approach?**
 It allows us to achieve competitive performance using **low-cost, lightweight algorithms** that do not require heavy computation or expensive hardware.  
 
 ---
@@ -609,7 +621,7 @@ It allows us to achieve competitive performance using **low-cost, lightweight al
 
 ### Block Diagram – Electronics  
 
----
+
 
 
 ---
