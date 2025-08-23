@@ -151,7 +151,7 @@ In our design, this motor directly drives the wheels without complex gearboxes. 
 ---
 
 ### MG90S Servo Motor (Steering)  
-<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/Servo%20Motor%20(Steering).png__i%3DAA" width="275" align="right" style="margin-left: 20px;" />
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/servo%20motor%20(steering).jpg" width="275" align="right" style="margin-left: 20px;" />
 
 Why we chose MG90S:  
 > - **Metal gears** provide durability under repeated steering corrections  
@@ -159,11 +159,13 @@ Why we chose MG90S:
 > - **High torque-to-size ratio** (2.2 kg·cm at 6V) suits lightweight steering loads  
 > - **Compact form factor** fits into 3D-printed chassis designs  
 
-Operating at 4.8–6V, the MG90S provides up to 120° of rotation, making it ideal for steering mechanisms. We use it to control a 3D-printed steering linkage system that turns both front wheels.  
+Operating at 4.8–6V, the MG90S provides up to 120° of rotation, making it ideal for steering mechanisms. We originally used it to control a 3D-printed steering linkage system that turned both front wheels.  
 
-The servo’s reliability and precision are critical for navigation. It ensures the robot makes sharp, consistent turns around obstacles and accurately aligns for parking maneuvers. Its metal gear construction provides strength and longevity, avoiding failures common in plastic gear servos.  
+The servo’s reliability and precision made it a solid choice during initial testing, ensuring sharp, consistent turns around obstacles and accurate alignment for parking maneuvers. However, during extended runs we noticed that a **single servo carried too much load** and introduced minor steering lag under stress.  
 
+To solve this, we eventually **changed to a dual-servo setup**, where two MG90S servos shared the steering load. This improved responsiveness, reduced mechanical strain on each servo, and gave us more consistent steering performance during long matches.
 <div style="clear: both;"></div><br>
+
 ---
 
 ### Dual Servo Motor (Steering Upgrade)
