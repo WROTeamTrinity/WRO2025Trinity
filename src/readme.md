@@ -292,3 +292,155 @@ Wire.endTransmission();
 | **Ultrasonic Sensors** | 3 sensors (front, left, right) read distance        |
 | **Reading Strategy**   | Takes 2 readings, picks the smaller (more reliable) |
 | **I2C Transmission**   | Sends 6 bytes (2 per sensor) to UNO slave           |
+
+
+
+
+## 🔴🟢 CAMERA
+
+### 1. Initialization
+
+```cpp
+#include <Pixy2.h>
+Pixy2 pixy;
+
+void setup() {
+  pixy.init();   // Initialize Pixy2 communication
+}
+```
+
+* `Pixy2 pixy;` creates an object that talks to the camera.
+* `pixy.init();` sets up the SPI/I2C/UART connection so Arduino can read detected objects (called *blocks*).
+
+---
+
+### 2. Getting Detected Objects
+
+```cpp
+pixy.ccc.getBlocks();   // Ask Pixy2 for latest detected objects (Color Connected Components)
+```
+
+* Pixy2 groups same-colored pixels into “**blocks**.”
+* Each block has:
+
+  * `m_signature` → which color signature it belongs to (you trained Pixy2 in PixyMon, e.g., Sig 1 = Red, Sig 2 = Green).
+  * `m_x, m_y` → center coordinates of the block.
+  * `m_width, m_height` → size of the block.
+
+---
+
+### 3. Looping Through Objects
+
+```cpp
+if (pixy.ccc.numBlocks) {
+  for (int i = 0; i < pixy.ccc.numBlocks; i++) {
+    int sig = pixy.ccc.blocks[i].m_signature;
+    int x   = pixy.ccc.blocks[i].m_x;
+    int y   = pixy.ccc.blocks[i].m_y;
+    int w   = pixy.ccc.blocks[i].m_width;
+    int h   = pixy.ccc.blocks[i].m_height;
+    int area = w * h;
+```
+
+* `pixy.ccc.numBlocks` = how many objects are detected right now.
+* Each block is read with `.blocks[i]`.
+* We extract:
+
+  * **Signature (`sig`)** → is it red (1) or green (2)?
+  * **Coordinates (`x,y`)** → where is the object in Pixy’s field of view.
+  * **Size (`w*h`)** → helps pick the biggest/closest object.
+
+---
+
+### 4. Filtering by Color
+
+```cpp
+if (sig == 1 && area > maxRedArea) {   // Red object
+  maxRedArea = area;
+  redX = x;
+  redY = y;
+}
+else if (sig == 2 && area > maxGreenArea) {  // Green object
+  maxGreenArea = area;
+  greenX = x;
+  greenY = y;
+}
+```
+
+* **Signature 1 = Red** → save its biggest detected block.
+* **Signature 2 = Green** → save its biggest detected block.
+* `redX, redY` and `greenX, greenY` are global variables → later sent to Uno.
+
+This ensures:
+
+* If multiple red/green objects exist, the **largest one (closest)** is chosen.
+
+---
+
+### 5. Sending Pixy Data Over I2C
+
+```cpp
+Wire.beginTransmission(slaveAddress);
+// Send red coordinates
+Wire.write(highByte(redX)); Wire.write(lowByte(redX));
+Wire.write(highByte(redY)); Wire.write(lowByte(redY));
+// Send green coordinates
+Wire.write(highByte(greenX)); Wire.write(lowByte(greenX));
+Wire.write(highByte(greenY)); Wire.write(lowByte(greenY));
+Wire.endTransmission();
+```
+
+* Coordinates are **split into two bytes (high + low)** since Arduino I2C only sends 1 byte at a time.
+* Sent to Uno at I2C address `8`.
+* On Uno side, these values tell the car whether **red** (turn right) or **green** (turn left) is detected.
+
+---
+
+## 🧠 Putting It All Together
+
+Here’s the **Pixy2 data handling chunk** simplified:
+
+```cpp
+// Step 1: Ask Pixy2 for objects
+pixy.ccc.getBlocks();
+
+if (pixy.ccc.numBlocks) {
+  for (int i = 0; i < pixy.ccc.numBlocks; i++) {
+    int sig = pixy.ccc.blocks[i].m_signature;
+    int x   = pixy.ccc.blocks[i].m_x;
+    int y   = pixy.ccc.blocks[i].m_y;
+    int area = pixy.ccc.blocks[i].m_width * pixy.ccc.blocks[i].m_height;
+
+    if (sig == 1 && area > maxRedArea) { // Red block
+      redX = x; redY = y;
+    }
+    else if (sig == 2 && area > maxGreenArea) { // Green block
+      greenX = x; greenY = y;
+    }
+  }
+}
+
+// Step 2: Send best red/green object to Uno
+Wire.beginTransmission(slaveAddress);
+Wire.write(highByte(redX)); Wire.write(lowByte(redX));
+Wire.write(highByte(redY)); Wire.write(lowByte(redY));
+Wire.write(highByte(greenX)); Wire.write(lowByte(greenX));
+Wire.write(highByte(greenY)); Wire.write(lowByte(greenY));
+Wire.endTransmission();
+```
+
+---
+
+✅ So the **Pixy2’s role** is:
+
+* Detect **colored objects** (red & green).
+* Pick the **closest one** (largest area).
+* Send its position `(x,y)` to Uno.
+
+✅ On the **Uno side**:
+
+* If **red seen → turn right**.
+* If **green seen → turn left**.
+* If **no color seen → rely on distance sensors**.
+
+
