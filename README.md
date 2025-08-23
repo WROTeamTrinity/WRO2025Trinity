@@ -711,5 +711,6 @@ With additional resources, we would improve Roboinity by:
 
 ---
 
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Schemes/POSTER.png" alt="banner">
 
 
