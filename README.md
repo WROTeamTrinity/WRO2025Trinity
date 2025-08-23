@@ -38,7 +38,7 @@ We focused on creating a reliable, affordable, and well-documented design so oth
       <b>Fasih ur Rehman</b><br>
       Mechanical Design, Programmer
       <br><i>17 years old. Designer & fabricator, always rethinking solutions to make the chassis stronger and lighter.</i><br><br>
-      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/fasih.png" alt="fasih" width="200"/>
+      <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/t-photos/fasih.jpeg" alt="fasih" width="200"/>
     </td>
     <td align="center">
       <b>Areena Ihsan</b><br>
