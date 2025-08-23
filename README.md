@@ -164,6 +164,29 @@ Operating at 4.8–6V, the MG90S provides up to 120° of rotation, making it ide
 The servo’s reliability and precision are critical for navigation. It ensures the robot makes sharp, consistent turns around obstacles and accurately aligns for parking maneuvers. Its metal gear construction provides strength and longevity, avoiding failures common in plastic gear servos.  
 
 <div style="clear: both;"></div><br>
+---
+
+### Dual Servo Motor (Steering Upgrade)
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/dual%20servo%20motor.jpg" width="275" align="right" style="margin-left: 20px;" />
+
+**Why we added dual servos:**  
+> - A single servo (MG90S) was sufficient, but under stress it showed **slight steering lag**.  
+> - **Dual-servo setup** distributes torque evenly to both wheels.  
+> - Reduces **mechanical strain** on a single linkage.  
+> - Provides **more stable and accurate steering** during sharp turns.  
+
+**How it works:**  
+- Two MG90S (or SG90 for lighter loads) servos are mounted on either side of the steering mechanism.  
+- Both are electronically linked and driven by the **same control signal**.  
+- This ensures that both front wheels receive identical steering input simultaneously.  
+
+**Technical Details:**  
+- **Model:** 2× MG90S Metal Gear Servo  
+- **Operating Voltage:** 4.8–6V  
+- **Stall Torque (per servo):** 2.2 kg·cm at 6V  
+- **Speed:** 0.08 sec/60°  
+- **Angle Range:** 120°  
+- **Control:** PWM signal from Arduino (both servos share the same pin or use a Y-split cable)  
 
 ---
 
