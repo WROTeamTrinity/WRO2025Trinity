@@ -296,7 +296,7 @@ Wire.endTransmission();
 
 
 
-## 🔴🟢 CAMERA
+#### ➤ CAMERA
 
 ### 1. Initialization
 
@@ -396,7 +396,7 @@ Wire.endTransmission();
 
 ---
 
-## 🧠 Putting It All Together
+#### ➤ Putting It All Together
 
 Here’s the **Pixy2 data handling chunk** simplified:
 
@@ -431,13 +431,13 @@ Wire.endTransmission();
 
 ---
 
-✅ So the **Pixy2’s role** is:
+#### ➤ So the **Pixy2’s role** is:
 
 * Detect **colored objects** (red & green).
 * Pick the **closest one** (largest area).
 * Send its position `(x,y)` to Uno.
 
-✅ On the **Uno side**:
+#### ➤ On the **Uno side**:
 
 * If **red seen → turn right**.
 * If **green seen → turn left**.
