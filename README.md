@@ -293,7 +293,7 @@ In our build, the Pixy is trained to recognize red and green objects, which repr
 
 ## 4) Motor Driver  
 
-### ⚡ L298N Dual H-Bridge  
+### L298N Dual H-Bridge  
 <img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/Others/README/L298N%20Dual%20H-Bridge.jpg" width="275" align="right" style="margin-left: 20px;" />
 
 Why we chose L298N:  
