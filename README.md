@@ -416,9 +416,19 @@ Code will be uploaded to the [`/src`](./src) folder.
 This section explains **how the code works**, the design trade-offs we made, and the stories behind those choices. It covers both sketches: **CODE 1 (UNO/Slave)** and **CODE 2 (MEGA/Master)**.
 
 ---
+## System Diagrams  
 
-## System Overview (Why Two Arduinos?)
+### Block Diagram – Electronics  
 
+Below is a simplified block diagram showing how power, sensors, and controllers are connected.  
+
+<img src="https://github.com/WROTeamTrinity/WRO2025Trinity/blob/main/3D%20Model%20Design/Block%20Diagram/WRO%20Trinity%202025.drawio.png"/>
+
+## System Overview
+
+### Electronics Notes
+
+**(Why Two Arduinos?)**
 At first, we tried a single Arduino to do everything: motor control, servo steering, ultrasonic sensing, and PixyCam input. The result was jittery motion and missed readings. Splitting into **two boards** made a huge difference:
 
 - **MEGA (Master):** Reads ultrasonic sensors → packages 6 bytes → sends over I²C.  
@@ -426,6 +436,26 @@ At first, we tried a single Arduino to do everything: motor control, servo steer
 
 This **decoupled sensing from actuation**, reduced timing conflicts, and made debugging easier.
 
+**Power Distribution:**
+
+- The LiPo battery is the main source.
+- Buck converters provide stable 5V for logic and 6V for servos.
+- A buck-boost converter ensures motors run at consistent voltage.
+
+**Controllers:**
+
+- Arduino Mega = Master: reads sensors (ultrasonics + PixyCam) and sends processed distance data over I²C.
+- Arduino Uno = Slave: receives sensor data, drives motor and steering servos.
+
+**Sensors:**
+
+- Three ultrasonic sensors (front, left, right) + PixyCam for vision.
+- Data fusion between camera and sonar improves obstacle avoidance.
+
+**Actuation:**
+
+- UNO drives L298N motor driver for the DC motor.
+- Steering controlled via servo(s) (single MG90S initially, later upgraded to dual-servo system).
 ---
 
 ## CODE 1: UNO (Slave) — Drives, Steers, and Listens
